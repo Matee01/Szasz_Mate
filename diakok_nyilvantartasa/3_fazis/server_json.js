@@ -1,12 +1,8 @@
 const express = require("express");
 const fs = require("fs/promises");
 const pool = require("./db");
-
 const app = express();
-
 app.use(express.json());
-
-// MySQL kapcsolat teszt
 app.get("/teszt", async (req, res) => {
     try {
         const [rows] = await pool.query("SELECT 1 AS teszt");
@@ -17,25 +13,17 @@ app.get("/teszt", async (req, res) => {
 });
 
 const FILE = "./adatok.json";
-
-// Adatok beolvasása
 async function readData() {
     const data = await fs.readFile(FILE, "utf8");
     return JSON.parse(data);
 }
-
-// Adatok mentése
 async function writeData(data) {
     await fs.writeFile(FILE, JSON.stringify(data, null, 2));
 }
-
-// Osztályok listázása
 app.get("/osztalyok", async (req, res) => {
     const data = await readData();
     res.json(data.osztalyok);
 });
-
-// Új osztály létrehozása
 app.post("/osztalyok", async (req, res) => {
     const data = await readData();
 
@@ -54,8 +42,6 @@ app.post("/osztalyok", async (req, res) => {
 
     res.status(201).json(ujOsztaly);
 });
-
-// Egy osztály diákjai
 app.get("/osztalyok/:id/diakok", async (req, res) => {
     const data = await readData();
 
@@ -67,8 +53,6 @@ app.get("/osztalyok/:id/diakok", async (req, res) => {
 
     res.json(diakok);
 });
-
-// Diákok listázása osztálynévvel
 app.get("/diakok", async (req, res) => {
     const data = await readData();
 
@@ -85,8 +69,6 @@ app.get("/diakok", async (req, res) => {
 
     res.json(result);
 });
-
-// Új diák létrehozása
 app.post("/diakok", async (req, res) => {
     const data = await readData();
 
@@ -115,8 +97,6 @@ app.post("/diakok", async (req, res) => {
 
     res.status(201).json(ujDiak);
 });
-
-// Diák törlése
 app.delete("/diakok/:id", async (req, res) => {
     const data = await readData();
 
@@ -132,8 +112,6 @@ app.delete("/diakok/:id", async (req, res) => {
         uzenet: "Diák törölve"
     });
 });
-
-// Osztály törlése
 app.delete("/osztalyok/:id", async (req, res) => {
     const data = await readData();
 

@@ -1,12 +1,7 @@
 const express = require("express");
 const pool = require("./db");
-
 const app = express();
-
 app.use(express.json());
-
-
-// GET /osztalyok
 app.get("/osztalyok", async (req, res) => {
     try {
         const [rows] = await pool.query(
@@ -21,9 +16,6 @@ app.get("/osztalyok", async (req, res) => {
         });
     }
 });
-
-
-// POST /osztalyok
 app.post("/osztalyok", async (req, res) => {
     try {
         const { nev, szak, evfolyam } = req.body;
@@ -49,9 +41,6 @@ app.post("/osztalyok", async (req, res) => {
         });
     }
 });
-
-
-// DELETE /osztalyok/:id
 app.delete("/osztalyok/:id", async (req, res) => {
     try {
         const id = req.params.id;
@@ -80,9 +69,6 @@ app.delete("/osztalyok/:id", async (req, res) => {
         });
     }
 });
-
-
-// GET /osztalyok/:id/diakok
 app.get("/osztalyok/:id/diakok", async (req, res) => {
     try {
         const [rows] = await pool.query(
@@ -98,9 +84,6 @@ app.get("/osztalyok/:id/diakok", async (req, res) => {
         });
     }
 });
-
-
-// GET /diakok
 app.get("/diakok", async (req, res) => {
     try {
         const [rows] = await pool.query(`
@@ -123,9 +106,6 @@ app.get("/diakok", async (req, res) => {
         });
     }
 });
-
-
-// POST /diakok
 app.post("/diakok", async (req, res) => {
     try {
         const { nev, email, osztaly_id } = req.body;
@@ -162,8 +142,6 @@ app.post("/diakok", async (req, res) => {
         });
     }
 });
-
-
 app.listen(3000, () => {
     console.log("A szerver fut a 3000-es porton");
 });
