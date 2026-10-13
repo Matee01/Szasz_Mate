@@ -1,0 +1,7 @@
+SELECT * FROM zenekarok;
+
+SELECT z.id, z.nev, z.stilus_id, s.stilus_neve, z.orszag, z.varos, z.aktiv_evek, z.tagok, z.legsikeresebb_album, z.kep_url FROM zenekarok z INNER JOIN stilusok s ON z.stilus_id = s.id;
+
+INSERT INTO zenekarok (id, nev, stilus_id, orszag, varos, aktiv_evek, tagok, legsikeresebb_album, kep_url) VALUES ( 7, 'Silver Vortex', 3, 'Svédország', 'Göteborg', '1972-1981', 'Lars Holm, Erik Sundberg, Nils Johanson', 'Twilight Machines', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Silhouettes_of_a_band_on_stage.jpg/640px-Silhouettes_of_a_band_on_stage.jpg' );
+
+SELECT stilus_neve FROM stilusok;
